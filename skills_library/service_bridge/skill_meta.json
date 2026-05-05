@@ -1,0 +1,6 @@
+{
+  "display_name": "Service Bridge",
+  "description": "Query your connected services (Supabase, GitHub, Notion, OpenAI, custom APIs) directly from chat using stored credentials.",
+  "source_repo": "internal",
+  "theme": "_unthemed"
+}

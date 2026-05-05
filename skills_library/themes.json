@@ -1,0 +1,531 @@
+{
+  "amazon": {
+    "name": "Amazon Selling",
+    "description": "Amazon FBA, keyword research, PPC, listing optimization, and profit calculation.",
+    "skills": [
+      "amazon_fba_calculator",
+      "amazon_keyword_research",
+      "amazon_listing_optimization",
+      "amazon_ppc_campaign",
+      "amazon_sales_estimator",
+      "tariff_calculator_amazon"
+    ]
+  },
+  "marketing": {
+    "name": "Marketing",
+    "description": "Conversion copywriting, content strategy, email, paid ads, SEO, and growth.",
+    "skills": [
+      "analytics_tracking",
+      "churn_prevention",
+      "cold_email",
+      "copywriting",
+      "email_sequence",
+      "launch_strategy",
+      "page_cro",
+      "paid_ads",
+      "pricing_strategy",
+      "product_marketing_context",
+      "seo_audit"
+    ]
+  },
+  "seo": {
+    "name": "SEO & Search",
+    "description": "Keyword research, on-page SEO, technical SEO, link building, and geo-targeting.",
+    "skills": [
+      "alert_manager",
+      "backlink_analyzer",
+      "competitor_analysis",
+      "content_gap_analysis",
+      "content_refresher",
+      "geo_content_optimizer",
+      "internal_linking_optimizer",
+      "keyword_research",
+      "meta_tags_optimizer",
+      "on_page_seo_auditor",
+      "performance_reporter",
+      "rank_tracker",
+      "schema_markup_generator",
+      "seo_content_writer",
+      "serp_analysis",
+      "technical_seo_checker"
+    ]
+  },
+  "ecommerce": {
+    "name": "E-Commerce",
+    "description": "Shopify, Amazon, Etsy, TikTok Shop: listings, ads, pricing, and operations.",
+    "skills": [
+      "amazon_fba_profit_calculator",
+      "competitor_price_analysis",
+      "conversion_rate_optimization",
+      "ecommerce_keyword_research",
+      "email_marketing_ecommerce",
+      "etsy_seo",
+      "google_shopping_ads",
+      "inventory_management",
+      "listing_title_optimizer",
+      "product_opportunity_finder",
+      "shopify_profit_calculator",
+      "shopify_seo"
+    ]
+  },
+  "agency_agents": {
+    "name": "Agency Agents",
+    "description": "144+ AI agent personas across 12 professional divisions.",
+    "skills": [
+      "agents_academic",
+      "agents_design",
+      "agents_engineering",
+      "agents_finance",
+      "agents_game_development",
+      "agents_marketing",
+      "agents_product",
+      "agents_project_management",
+      "agents_sales",
+      "agents_specialized",
+      "agents_support",
+      "agents_testing"
+    ]
+  },
+  "_unthemed": {
+    "name": "Uncategorized",
+    "description": "Skills not yet assigned to a theme.",
+    "skills": [
+      "colleague_skill",
+      "feedback_skill",
+      "minto_content_writing",
+      "notebooklm_py",
+      "notebooklm_skill",
+      "gstack",
+      "algorithmic_art",
+      "artifacts_builder",
+      "brand_guidelines",
+      "canvas_design",
+      "changelog_generator",
+      "competitive_ads_extractor",
+      "content_research_writer",
+      "domain_name_brainstormer",
+      "file_organizer",
+      "image_enhancer",
+      "internal_comms",
+      "invoice_organizer",
+      "lead_research_assistant",
+      "mcp_builder",
+      "meeting_insights_analyzer",
+      "notion_knowledge_capture",
+      "notion_meeting_intelligence",
+      "notion_research_documentation",
+      "notion_spec_to_implementation",
+      "raffle_winner_picker",
+      "resemble_detect",
+      "skill_creator",
+      "slack_gif_creator",
+      "template_skill",
+      "theme_factory",
+      "video_downloader",
+      "webapp_testing",
+      "graphify",
+      "tvc_director",
+      "core_philosophy",
+      "architecture",
+      "how_it_works",
+      "capabilities",
+      "quick_start",
+      "sub_skill_structure",
+      "knowledge_gaps_honestly_flags_what_the_research_couldn_t_cover",
+      "distillation_rules",
+      "design_decisions",
+      "platform_adaptation",
+      "contributing",
+      "license",
+      "web",
+      "star_history",
+      "rednote_bootstrap",
+      "pixelle_video",
+      "project_manager_skill",
+      "property_management_skill",
+      "property_staging_skill",
+      "claude_api",
+      "doc_coauthoring",
+      "docx",
+      "frontend_design",
+      "pdf",
+      "pptx",
+      "web_artifacts_builder",
+      "xlsx",
+      "create_voltagent",
+      "voltagent_best_practices",
+      "voltagent_core_reference",
+      "voltagent_docs_bundle",
+      "supabase",
+      "supabase_postgres_best_practices",
+      "installation",
+      "available_skills",
+      "support",
+      "gemini_api_dev",
+      "gemini_interactions_api",
+      "gemini_live_api_dev",
+      "vertex_ai_api_dev",
+      "stripe_best_practices",
+      "stripe_projects",
+      "upgrade_stripe",
+      "chdb_datastore",
+      "chdb_sql",
+      "clickhouse_architecture_advisor",
+      "clickhouse_best_practices",
+      "clickhousectl_cloud_deploy",
+      "clickhousectl_local_dev",
+      "vercel_skills",
+      "microsoft_azure",
+      "pm_data_analytics",
+      "pm_execution",
+      "pm_go_to_market",
+      "pm_market_research",
+      "pm_marketing_growth",
+      "pm_product_discovery",
+      "pm_product_strategy",
+      "pm_toolkit",
+      "attach_db",
+      "convert_file",
+      "duckdb_docs",
+      "install_duckdb",
+      "query",
+      "read_file",
+      "read_memories",
+      "s3_explore",
+      "spatial",
+      "agent_email_inbox",
+      "email_best_practices",
+      "react_email",
+      "resend",
+      "resend_cli",
+      "ai_coding_skills",
+      "mongodb_skills",
+      "qdrant_skills",
+      "superpowers",
+      "anthropic_cybersecurity_skills",
+      "voltagent_voltagent_skills",
+      "supabase_supabase_agent_skills",
+      "google_agent_skills",
+      "google_gemini_skills",
+      "stripe_stripe_skills",
+      "clickhouse_skills",
+      "phuryn_pm_skills",
+      "duckdb_skills",
+      "resend_skills",
+      "agency_agents",
+      "amazon_skills",
+      "ecommerce_skills",
+      "marketing_skills",
+      "seo_geo",
+      "property_management",
+      "service_bridge",
+      "industry_expert",
+      "industry_master"
+    ]
+  },
+  "engineering": {
+    "name": "Engineering",
+    "description": "",
+    "skills": [
+      "ai_coding_skills",
+      "anthropic_cybersecurity_skills",
+      "google_agent_skills",
+      "google_gemini_skills",
+      "microsoft_azure",
+      "qdrant_skills",
+      "superpowers",
+      "vercel_skills",
+      "voltagent_voltagent_skills",
+      "composiohq",
+      "better_auth",
+      "tinybird",
+      "agent_toolkit",
+      "linear_claude_skill",
+      "claude_speed_reader",
+      "common_tasks_agent_skills",
+      "aws_skills",
+      "claude_bootstrap",
+      "recursive_decomposition_skill",
+      "claude_code_startup",
+      "model_hierarchy_skill",
+      "varlock_claude_skill",
+      "codex_collab",
+      "nodejs_skill"
+    ]
+  },
+  "data_analysis": {
+    "name": "Data Analysis",
+    "description": "",
+    "skills": [
+      "clickhouse_skills"
+    ]
+  },
+  "database": {
+    "name": "Database",
+    "description": "",
+    "skills": [
+      "duckdb_skills",
+      "mongodb_skills",
+      "supabase_supabase_agent_skills",
+      "neondatabase",
+      "data_structure_protocol"
+    ]
+  },
+  "product_management": {
+    "name": "Product Management",
+    "description": "",
+    "skills": [
+      "phuryn_pm_skills"
+    ]
+  },
+  "productibility": {
+    "name": "Productibility",
+    "description": "",
+    "skills": [
+      "resend_skills"
+    ]
+  },
+  "payment": {
+    "name": "Payment",
+    "description": "",
+    "skills": [
+      "stripe_stripe_skills"
+    ]
+  },
+  "design": {
+    "name": "Design",
+    "description": "",
+    "skills": [
+      "figma"
+    ]
+  },
+  "llm_official_skill": {
+    "name": "Llm Official Skill",
+    "description": "",
+    "skills": [
+      "openai"
+    ]
+  },
+  "wordpress": {
+    "name": "Wordpress",
+    "description": "",
+    "skills": [
+      "wordpress"
+    ]
+  },
+  "huggingface": {
+    "name": "Huggingface",
+    "description": "",
+    "skills": [
+      "huggingface"
+    ]
+  },
+  "web_search": {
+    "name": "Web Search",
+    "description": "",
+    "skills": [
+      "brave"
+    ]
+  },
+  "crypto": {
+    "name": "Crypto",
+    "description": "",
+    "skills": [
+      "coinbase"
+    ]
+  },
+  "firebase": {
+    "name": "Firebase",
+    "description": "",
+    "skills": [
+      "firebase"
+    ]
+  },
+  "productivity": {
+    "name": "Productivity",
+    "description": "",
+    "skills": [
+      "notion",
+      "superpowers_lab",
+      "shpigford",
+      "translate_book",
+      "skill_seekers",
+      "understand_anything",
+      "skill_optimizer",
+      "claude_apple_bridges",
+      "kicad_happy"
+    ]
+  },
+  "web_dev": {
+    "name": "Web Dev",
+    "description": "",
+    "skills": [
+      "web_quality"
+    ]
+  },
+  "digital_marketing": {
+    "name": "Digital Marketing",
+    "description": "",
+    "skills": [
+      "ai_marketing"
+    ]
+  },
+  "content_visibility": {
+    "name": "Content Visibility",
+    "description": "",
+    "skills": [
+      "claude_seo",
+      "aso_skills"
+    ]
+  },
+  "content_management": {
+    "name": "Content Management",
+    "description": "",
+    "skills": [
+      "x_article_publisher_skill",
+      "tweetclaw"
+    ]
+  },
+  "email_marketing": {
+    "name": "Email Marketing",
+    "description": "",
+    "skills": [
+      "email_marketing_bible"
+    ]
+  },
+  "content_creation": {
+    "name": "Content Creation",
+    "description": "",
+    "skills": [
+      "creative_director_skill",
+      "humanizer",
+      "wonda",
+      "youtube_clipper",
+      "video_db_skills"
+    ]
+  },
+  "engineering_frontend_development": {
+    "name": "Engineering Frontend Development",
+    "description": "",
+    "skills": [
+      "frontend_slides",
+      "ui_skills",
+      "ui_ux_pro_max",
+      "swiftui_agent_skill",
+      "swift_patterns",
+      "taste_skill"
+    ]
+  },
+  "operations": {
+    "name": "Operations",
+    "description": "",
+    "skills": [
+      "founder_skills",
+      "charlie_cfo_skill",
+      "opc_skills"
+    ]
+  },
+  "engineering_context_eng": {
+    "name": "Engineering Context Eng",
+    "description": "",
+    "skills": [
+      "claude_memory",
+      "context_engineering_agent_skill",
+      "claude_memory_kit"
+    ]
+  },
+  "research": {
+    "name": "Research",
+    "description": "",
+    "skills": [
+      "last30days",
+      "vexor",
+      "scientific_agent_skills",
+      "auto_claude_code_research_in_sleep",
+      "materials_simulation_skills"
+    ]
+  },
+  "career_development": {
+    "name": "Career Development",
+    "description": "",
+    "skills": [
+      "resume_skills"
+    ]
+  },
+  "education": {
+    "name": "Education",
+    "description": "",
+    "skills": [
+      "tutor_skill"
+    ]
+  },
+  "official_rootly_skills": {
+    "name": "Official Rootly Skills",
+    "description": "",
+    "skills": [
+      "rootly_mcp_server"
+    ]
+  },
+  "engineering_ios_development": {
+    "name": "Engineering Ios Development",
+    "description": "",
+    "skills": [
+      "ios_simulator",
+      "app_store_preflight",
+      "app_store_connect_cli"
+    ]
+  },
+  "official_coderabbitai_skills": {
+    "name": "Official Coderabbitai Skills",
+    "description": "",
+    "skills": [
+      "coderabbitai_skills"
+    ]
+  },
+  "engineering_dev_tools": {
+    "name": "Engineering Dev Tools",
+    "description": "",
+    "skills": [
+      "playwright_skill",
+      "platform_design_skills",
+      "dev_tool_agent"
+    ]
+  },
+  "engineering_test": {
+    "name": "Engineering Test",
+    "description": "",
+    "skills": [
+      "test_automation"
+    ]
+  },
+  "engineering_cybersecurity": {
+    "name": "Engineering Cybersecurity",
+    "description": "",
+    "skills": [
+      "agent_scan",
+      "vibesec_skill"
+    ]
+  },
+  "personal_health": {
+    "name": "Personal Health",
+    "description": "",
+    "skills": [
+      "wellally_health",
+      "homeassistant"
+    ]
+  },
+  "investment": {
+    "name": "Investment",
+    "description": "",
+    "skills": [
+      "claude_ecom"
+    ]
+  },
+  "real_estate": {
+    "name": "Real Estate",
+    "description": "",
+    "skills": [
+      "property_management"
+    ]
+  }
+}

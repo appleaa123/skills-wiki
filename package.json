@@ -1,0 +1,12 @@
+{
+  "name": "skills-wiki",
+  "version": "1.0.0",
+  "description": "Open Source Skills Wiki - Local Multi-LLM Assistant Platform",
+  "scripts": {
+    "start": "docker compose up --build",
+    "stop": "docker compose down",
+    "build:dashboard": "cd dashboard && npm install && npm run build"
+  },
+  "author": "",
+  "license": "MIT"
+}
