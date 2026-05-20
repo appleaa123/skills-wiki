@@ -1,74 +1,57 @@
-import fs from "fs";
-import path from "path";
-import os from "os";
+import fs from "fs"
+import path from "path"
 
-// Helper to get local DB path mirroring Python's logic
-function getDbPath(): string {
-  const homeDir = path.join(os.homedir(), ".skills-wiki");
-  if (!fs.existsSync(homeDir)) {
-    fs.mkdirSync(homeDir, { recursive: true });
+const CONFIG_PATH = path.join(process.cwd(), "..", "data", "local_config.json")
+
+export interface LocalConfig {
+  client_id: string
+  api_key: string
+  enabled_skills: string[]
+  skill_configs: Record<string, Record<string, string>>
+  connections: Record<string, Record<string, string>>
+}
+
+const DEFAULT_CONFIG: LocalConfig = {
+  client_id: "",
+  api_key: "",
+  enabled_skills: [],
+  skill_configs: {},
+  connections: {},
+}
+
+function generateApiKey(): string {
+  const bytes = new Uint8Array(16)
+  crypto.getRandomValues(bytes)
+  return Array.from(bytes).map((b) => b.toString(16).padStart(2, "0")).join("")
+}
+
+export function readLocalConfig(): LocalConfig {
+  let config: LocalConfig = { ...DEFAULT_CONFIG }
+
+  if (fs.existsSync(CONFIG_PATH)) {
+    try {
+      config = { ...DEFAULT_CONFIG, ...JSON.parse(fs.readFileSync(CONFIG_PATH, "utf-8")) }
+    } catch {
+      config = { ...DEFAULT_CONFIG }
+    }
   }
-  return path.join(homeDir, "db.json");
-}
 
-export interface Client {
-  client_id: string;
-  enabled_skills: string[];
-}
-
-export interface ClientSkillConfig {
-  client_id: string;
-  skill: string;
-  config: Record<string, unknown>;
-  updated_at: string;
-}
-
-export interface ClientServiceCredential {
-  client_id: string;
-  service: string;
-  credentials: Record<string, unknown>;
-}
-
-export interface LocalDb {
-  clients: Client[];
-  audit_logs: unknown[];
-  feedback_logs: unknown[];
-  client_skill_configs: ClientSkillConfig[];
-  client_service_credentials: ClientServiceCredential[];
-}
-
-const defaultDb: LocalDb = {
-  clients: [{ client_id: "local-admin", enabled_skills: [] }],
-  audit_logs: [],
-  feedback_logs: [],
-  client_skill_configs: [],
-  client_service_credentials: [],
-};
-
-export function loadDb(): LocalDb {
-  const dbPath = getDbPath();
-  if (!fs.existsSync(dbPath)) {
-    return defaultDb;
+  let dirty = false
+  if (!config.client_id) {
+    config.client_id = crypto.randomUUID()
+    dirty = true
   }
-  try {
-    const data = fs.readFileSync(dbPath, "utf-8");
-    return JSON.parse(data) as LocalDb;
-  } catch (err) {
-    console.error("Failed to load db.json:", err);
-    return defaultDb;
+  if (!config.api_key) {
+    config.api_key = generateApiKey()
+    dirty = true
   }
+  if (dirty) writeLocalConfig(config)
+
+  return config
 }
 
-export function saveDb(data: LocalDb): void {
-  const dbPath = getDbPath();
-  try {
-    fs.writeFileSync(dbPath, JSON.stringify(data, null, 2), "utf-8");
-  } catch (err) {
-    console.error("Failed to save db.json:", err);
-  }
-}
-
-export function getLocalAdminId(): string {
-  // Hardcoded for open-source local usage
-  return process.env.CLIENT_ID || "local-admin";
+export function writeLocalConfig(data: LocalConfig): void {
+  const dir = path.dirname(CONFIG_PATH)
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
+  fs.writeFileSync(CONFIG_PATH, JSON.stringify(data, null, 2))
 }

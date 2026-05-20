@@ -1,53 +1,46 @@
-import Link from "next/link";
-import { CredentialsPopup } from "@/components/CredentialsPopup";
-import { gatewayUrl } from "@/lib/utils";
-import { DashboardClient } from "@/components/DashboardClient";
-import { loadDb, getLocalAdminId } from "@/lib/local-db";
+import { gatewayUrl } from "@/lib/utils"
+import { DashboardClient } from "@/components/DashboardClient"
+import { AppHeader } from "@/components/AppHeader"
+import { readLocalConfig } from "@/lib/local-db"
+
+export const dynamic = "force-dynamic"
 
 export default async function DashboardPage() {
-  const clientId = getLocalAdminId();
-  const db = loadDb();
-  
-  let client = db.clients.find(c => c.client_id === clientId);
-  if (!client) {
-    client = { client_id: clientId, enabled_skills: [] };
-  }
+  const config = readLocalConfig()
 
   const credentials = {
-    clientId: client.client_id,
-    apiKey: "sk-local-dev-key",
-    claudeUrl: gatewayUrl(client.client_id, "mcp"),
-    chatgptUrl: gatewayUrl(client.client_id, "openapi"),
-    geminiUrl: gatewayUrl(client.client_id, "mcp"),
-    status: "live" as "live",
-    username: "Local User",
-  };
+    clientId: config.client_id,
+    apiKey: config.api_key,
+    claudeUrl: gatewayUrl("mcp"),
+    chatgptUrl: gatewayUrl("openapi"),
+    geminiUrl: gatewayUrl("mcp"),
+    status: "live" as const,
+  }
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b px-6 py-4 flex items-center justify-between">
-        <span className="font-semibold">Skills Portal</span>
-        <div className="flex items-center gap-4">
-          <Link href="/marketplace" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            Marketplace
-          </Link>
-          <Link href="/customize" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            Customize
-          </Link>
-          <Link href="/connections" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            Connections
-          </Link>
+    <div style={{ minHeight: "100vh", background: "var(--v4-bg)" }}>
+      <AppHeader activePage="dashboard" />
+
+      <main style={{ maxWidth: 960, margin: "0 auto", padding: "24px 20px" }}>
+        <div className="v4-cmd-prompt" style={{ marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <span><span className="v4-p">$</span> skills-wiki status --verbose</span>
+          <div style={{ display: "flex", gap: 14 }}>
+            <span><span style={{ color: "var(--v4-primary)" }}>●</span> gateway: live</span>
+            <span><span style={{ color: "var(--v4-amber)" }}>●</span> plan: local</span>
+          </div>
         </div>
-      </header>
 
-      <main className="mx-auto max-w-3xl px-6 py-10 space-y-10">
-        <section>
-          <h2 className="text-xl font-semibold mb-4">Your connections</h2>
-          <CredentialsPopup credentials={credentials} enabledSkills={client.enabled_skills} />
-        </section>
+        <div style={{ marginBottom: 20 }}>
+          <h1 style={{ fontSize: 22, fontWeight: 700, letterSpacing: "-0.4px", marginBottom: 3, color: "var(--v4-fg)" }}>Your Workflow Control Center.</h1>
+          <p style={{ fontSize: 12, color: "var(--v4-fg-3)" }}>Manage active skills, credentials, and connect to your AI assistant.</p>
+        </div>
 
-        <DashboardClient enabledSkills={client.enabled_skills} />
+        <DashboardClient
+          enabledSkills={config.enabled_skills}
+          installedSkills={config.enabled_skills}
+          credentials={credentials}
+        />
       </main>
     </div>
-  );
+  )
 }

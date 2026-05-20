@@ -1,33 +1,19 @@
-# Byte-compiled / optimized / DLL files
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
-
-# Environments
 .env
-.env.local
-.env.*.local
-.venv
-env/
+*.egg-info/
+.venv/
 venv/
-ENV/
 
-# Node.js
+# Local state (not committed)
+data/local_config.json
+
+# Node
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# Next.js
 .next/
-out/
+.env.local
 
-# OS files
+# OS
 .DS_Store
-Thumbs.db
-
-# Misc
-.idea/
-.vscode/
-*.tsbuildinfo
+*.swp

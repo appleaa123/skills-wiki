@@ -1,145 +1,93 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Copy, Eye, EyeOff, BookOpen } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { SetupGuide, type Platform } from "@/components/SetupGuide";
-import { StatusBadge } from "@/components/StatusBadge";
+import Link from "next/link";
 import { maskApiKey } from "@/lib/utils";
 
-interface Credentials {
+const MONO = "var(--font-mono, 'JetBrains Mono', monospace)";
+
+export interface Credentials {
   clientId: string;
   apiKey: string;
   claudeUrl: string;
   chatgptUrl: string;
   geminiUrl: string;
   status: "pending" | "live";
-  username?: string;
 }
 
-interface CredentialsPopupProps {
-  credentials: Credentials;
-  enabledSkills?: string[];
+function CopyBtn({ value }: { value: string }) {
+  const [ok, setOk] = useState(false);
+  function go() {
+    navigator.clipboard?.writeText(value);
+    setOk(true);
+    setTimeout(() => setOk(false), 1800);
+  }
+  return (
+    <button
+      onClick={go}
+      title="copy"
+      style={{ background: "none", border: "none", cursor: "pointer", padding: "0 4px", color: ok ? "var(--v4-primary)" : "var(--v4-fg-4)", display: "flex", alignItems: "center" }}
+    >
+      {ok ? (
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+      ) : (
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="9" y="9" width="13" height="13" rx="1" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+      )}
+    </button>
+  );
 }
 
-function CopyRow({
-  label,
-  value,
-  onGuide,
-}: {
-  label: string;
-  value: string;
-  onGuide: () => void;
-}) {
-  const [copied, setCopied] = useState(false);
-
-  const copy = async () => {
-    await navigator.clipboard.writeText(value);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+function CredRow({ label, value, secret = false }: { label: string; value: string; secret?: boolean }) {
+  const [show, setShow] = useState(false);
+  const display = secret && !show ? maskApiKey(value) : value;
 
   return (
-    <div className="space-y-1">
-      <p className="text-xs font-medium text-muted-foreground">{label}</p>
-      <div className="flex items-center gap-2">
-        <code className="flex-1 truncate rounded-md bg-muted px-3 py-2 text-xs font-mono">
-          {value}
+    <div style={{ marginBottom: 10 }}>
+      <span className="v4-mono-label">{label}</span>
+      <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+        <code style={{ flex: 1, background: "var(--v4-muted)", border: "1px solid var(--v4-border)", borderRadius: 3, padding: "6px 10px", fontSize: 13, fontFamily: MONO, color: "var(--v4-primary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+          {display}
         </code>
-        <Button variant="outline" size="icon" className="h-8 w-8 shrink-0" onClick={copy}>
-          {copied ? <Check className="h-3.5 w-3.5 text-green-600" /> : <Copy className="h-3.5 w-3.5" />}
-        </Button>
-        <Button variant="outline" size="icon" className="h-8 w-8 shrink-0" onClick={onGuide} title="Setup guide">
-          <BookOpen className="h-3.5 w-3.5" />
-        </Button>
+        {secret && (
+          <button
+            onClick={() => setShow((v) => !v)}
+            style={{ fontFamily: MONO, fontSize: 12, color: "var(--v4-fg-3)", background: "none", border: "none", cursor: "pointer", padding: "0 6px", whiteSpace: "nowrap" }}
+          >
+            {show ? "[hide]" : "[show]"}
+          </button>
+        )}
+        <CopyBtn value={value} />
       </div>
     </div>
   );
 }
 
-function ApiKeyRow({ apiKey }: { apiKey: string }) {
-  const [revealed, setRevealed] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  const copy = async () => {
-    await navigator.clipboard.writeText(apiKey);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
+export function CredentialsPopup({ credentials }: { credentials: Credentials }) {
   return (
-    <div className="space-y-1">
-      <p className="text-xs font-medium text-muted-foreground">API Key</p>
-      <div className="flex items-center gap-2">
-        <code className="flex-1 truncate rounded-md bg-muted px-3 py-2 text-xs font-mono">
-          {revealed ? apiKey : maskApiKey(apiKey)}
-        </code>
-        <Button
-          variant="outline"
-          size="icon"
-          className="h-8 w-8 shrink-0"
-          onClick={() => setRevealed((v) => !v)}
-          title={revealed ? "Hide" : "Reveal"}
-        >
-          {revealed ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
-        </Button>
-        <Button variant="outline" size="icon" className="h-8 w-8 shrink-0" onClick={copy}>
-          {copied ? <Check className="h-3.5 w-3.5 text-green-600" /> : <Copy className="h-3.5 w-3.5" />}
-        </Button>
+    <div className="v4-card" style={{ padding: 16 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+        <div>
+          <div style={{ fontFamily: MONO, fontWeight: 600, color: "var(--v4-primary)", fontSize: 15 }}>gateway_credentials</div>
+          <div style={{ fontFamily: MONO, fontSize: 12, color: "var(--v4-fg-4)", marginTop: 1 }}>// paste into your AI assistant</div>
+        </div>
+        <span style={{ fontFamily: MONO, fontSize: 12, display: "flex", alignItems: "center", gap: 5, color: "var(--v4-primary)" }}>
+          <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--v4-primary)", display: "inline-block" }} />
+          live
+        </span>
       </div>
+
+      <CredRow label="CLIENT_ID" value={credentials.clientId} />
+      <CredRow label="API_KEY" value={credentials.apiKey} secret />
+      <CredRow label="CLAUDE_URL" value={credentials.claudeUrl} />
+      <CredRow label="CHATGPT_URL" value={credentials.chatgptUrl} />
+      <CredRow label="GEMINI_URL" value={credentials.geminiUrl} />
+
+      <Link
+        href="/setup"
+        style={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: 12, fontFamily: MONO, fontSize: 13, fontWeight: 500, padding: "6px 14px", borderRadius: 4, border: "1px solid var(--v4-border)", background: "var(--v4-surface)", color: "var(--v4-fg-2)", textDecoration: "none", boxShadow: "var(--v4-shadow-sm)" }}
+      >
+        cat ./setup_guide →
+      </Link>
     </div>
-  );
-}
-
-export function CredentialsPopup({ credentials, enabledSkills = [] }: CredentialsPopupProps) {
-  const [guideOpen, setGuideOpen] = useState<Platform | null>(null);
-
-  return (
-    <>
-      <div className="rounded-xl border bg-card p-6 shadow-lg space-y-5">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-lg font-semibold">Your skills are ready!</h2>
-            <p className="text-sm text-muted-foreground mt-0.5">
-              Copy a URL and API key to connect your preferred platform.
-            </p>
-          </div>
-          <StatusBadge
-            clientId={credentials.clientId}
-            initialStatus={credentials.status}
-          />
-        </div>
-
-        <div className="space-y-4">
-          <CopyRow
-            label="User Name"
-            value={credentials.clientId}
-            onGuide={() => setGuideOpen("username")}
-          />
-          <CopyRow
-            label="Claude.ai URL"
-            value={credentials.claudeUrl}
-            onGuide={() => setGuideOpen("claude")}
-          />
-          <CopyRow
-            label="ChatGPT URL"
-            value={credentials.chatgptUrl}
-            onGuide={() => setGuideOpen("chatgpt")}
-          />
-          <CopyRow
-            label="Gemini URL"
-            value={credentials.geminiUrl}
-            onGuide={() => setGuideOpen("gemini")}
-          />
-          <ApiKeyRow apiKey={credentials.apiKey} />
-        </div>
-
-        <p className="text-xs text-muted-foreground">
-          Store your API key safely — you can view it again from your dashboard.
-        </p>
-      </div>
-
-      <SetupGuide platform={guideOpen} onClose={() => setGuideOpen(null)} enabledSkills={enabledSkills} />
-    </>
   );
 }

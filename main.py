@@ -1,15 +1,14 @@
-"""Root MCP server entry point.
+"""Skills Wiki — local MCP server.
 
-Mounts every skill found in skills_library/ at startup. The Cloudflare Worker
-filters exposed tools by each client's enabled_skills list, so enabling or
-disabling a skill in the dashboard takes effect immediately without a redeploy.
+Mounts every skill found in skills_library/ at startup.
+Enabled/disabled state is read from data/local_config.json.
 
 Usage:
-    # Local dev (MCP Inspector):
-    fastmcp dev main.py
-
-    # Production (Streamable HTTP):
+    # HTTP mode (default — connects to the dashboard):
     python main.py
+
+    # Local dev with MCP Inspector:
+    fastmcp dev main.py
 """
 
 import importlib.util
@@ -18,13 +17,12 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from fastmcp import FastMCP
-
-from core.config import get_client_id
+from starlette.requests import Request
+from starlette.responses import JSONResponse
 
 load_dotenv()
 
-client_id = get_client_id()
-mcp = FastMCP(f"Agency-{client_id}")
+mcp = FastMCP("skills-wiki")
 
 _skills_dir = Path(__file__).parent / "skills_library"
 
@@ -45,11 +43,12 @@ for skill_dir in sorted(_skills_dir.iterdir()):
     except Exception as exc:
         print(f"[warn] {skill_dir.name}: failed to load — {exc}")
 
+
+@mcp.custom_route("/health", methods=["GET"])
+async def health_check(request: Request) -> JSONResponse:
+    return JSONResponse({"status": "ok"})
+
+
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", "0"))
-    if port:
-        # HTTP mode: PORT is set by Railway (and other hosting platforms)
-        mcp.run(transport="streamable-http", host="0.0.0.0", port=port)
-    else:
-        # Stdio mode: no PORT set — spawned by Inspector, Claude Desktop, etc.
-        mcp.run(transport="stdio")
+    port = int(os.getenv("PORT", "8000"))
+    mcp.run(transport="streamable-http", host="0.0.0.0", port=port)

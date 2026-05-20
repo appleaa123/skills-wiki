@@ -1,12 +1,15 @@
 {
   "name": "skills-wiki",
   "version": "1.0.0",
-  "description": "Open Source Skills Wiki - Local Multi-LLM Assistant Platform",
+  "description": "Open-source local AI skills manager for Claude, ChatGPT, and Gemini",
   "scripts": {
-    "start": "docker compose up --build",
-    "stop": "docker compose down",
-    "build:dashboard": "cd dashboard && npm install && npm run build"
+    "setup": "npm run setup:python && npm run setup:node",
+    "setup:python": "pip install -r requirements.txt",
+    "setup:node": "cd dashboard && npm install",
+    "dev": "concurrently -n \"MCP,Dashboard\" -c \"blue,green\" \"python main.py\" \"cd dashboard && npm run dev\"",
+    "start": "concurrently -n \"MCP,Dashboard\" -c \"blue,green\" \"python main.py\" \"cd dashboard && npm run build && npm start --prefix dashboard\""
   },
-  "author": "",
-  "license": "MIT"
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
 }

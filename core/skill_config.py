@@ -40,44 +40,26 @@ _CONFIG_FIELDS = {
 }
 
 
-def get_client_skill_config(client_id: str, skill: str) -> dict:
-    """Return the config dict for a client+skill pair. Returns {} on any error."""
+def get_client_skill_config(_client_id: str, skill: str) -> dict:
+    """Return the config dict for a skill. Returns {} if not found."""
     try:
-        from core.db import _get_client
-        resp = (
-            _get_client()
-            .table("client_skill_configs")
-            .select("config")
-            .eq("client_id", client_id)
-            .eq("skill", skill)
-            .single()
-            .execute()
-        )
-        config = resp.data.get("config", {}) if resp.data else {}
+        from core.db import get_client_skill_config as _get
+        config = _get(_client_id, skill)
         if config:
-            logger.info(f"[customization] Fetched config for {client_id}/{skill}: {config}")
+            logger.info("[customization] Fetched config for %s: %s", skill, config)
         return config
     except Exception as exc:
-        logger.debug(f"[customization] client_skill_configs fetch skipped for {client_id}/{skill}: {exc}")
+        logger.debug("[customization] config fetch skipped for %s: %s", skill, exc)
         return {}
 
 
-def set_client_skill_config(client_id: str, skill: str, config: dict) -> None:
-    """Upsert a config row. Never raises — failures are logged only."""
+def set_client_skill_config(_client_id: str, skill: str, config: dict) -> None:
+    """Persist a skill config. Never raises."""
     try:
-        from core.db import _get_client
-        import datetime
-        _get_client().table("client_skill_configs").upsert(
-            {
-                "client_id": client_id,
-                "skill": skill,
-                "config": config,
-                "updated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-            },
-            on_conflict="client_id,skill",
-        ).execute()
+        from core.db import set_client_skill_config as _set
+        _set(_client_id, skill, config)
     except Exception as exc:
-        logger.warning("client_skill_configs upsert failed: %s", exc)
+        logger.warning("skill config save failed: %s", exc)
 
 
 def build_presentation_hint(config: dict) -> str:

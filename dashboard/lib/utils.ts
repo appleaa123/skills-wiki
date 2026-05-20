@@ -10,10 +10,7 @@ export function maskApiKey(key: string): string {
   return key.slice(0, 6) + "*".repeat(Math.max(key.length - 6, 10));
 }
 
-export function gatewayUrl(clientId: string, platform: "mcp" | "openapi") {
-  const base = process.env.NEXT_PUBLIC_GATEWAY_BASE_URL ||
-    "https://skills-portal.skills-library.workers.dev";
-  return platform === "openapi"
-    ? `${base}/${clientId}/openapi.json`
-    : `${base}/${clientId}/mcp`;
+export function gatewayUrl(platform: "mcp" | "openapi") {
+  const base = process.env.NEXT_PUBLIC_GATEWAY_BASE_URL || "http://localhost:8000"
+  return platform === "openapi" ? `${base}/openapi.json` : `${base}/mcp`
 }

@@ -5,25 +5,54 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 160 30% 8%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 160 30% 8%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --popover-foreground: 160 30% 8%;
+    --primary: 161 91% 30%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 38 92% 50%;
+    --secondary-foreground: 20 90% 12%;
+    --muted: 161 20% 96%;
+    --muted-foreground: 161 8% 40%;
+    --accent: 161 40% 94%;
+    --accent-foreground: 161 91% 22%;
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 161 15% 88%;
+    --input: 161 15% 88%;
+    --ring: 161 91% 30%;
     --radius: 0.5rem;
+
+    /* V4 design tokens */
+    --v4-primary:        #16a34a;
+    --v4-primary-hover:  #15803d;
+    --v4-primary-fg:     #ffffff;
+    --v4-primary-10:     rgba(22,163,74,0.10);
+    --v4-primary-20:     rgba(22,163,74,0.20);
+    --v4-ring:           rgba(22,163,74,0.35);
+    --v4-bg:             #f8fafc;
+    --v4-surface:        #ffffff;
+    --v4-surface-2:      #f1f5f9;
+    --v4-border:         #e2e8f0;
+    --v4-border-2:       #cbd5e1;
+    --v4-fg:             #0f172a;
+    --v4-fg-2:           #334155;
+    --v4-fg-3:           #64748b;
+    --v4-fg-4:           #94a3b8;
+    --v4-muted:          #f1f5f9;
+    --v4-amber:          #b45309;
+    --v4-amber-bg:       #fef3c7;
+    --v4-blue:           #2563eb;
+    --v4-blue-bg:        #dbeafe;
+    --v4-destructive:    #ef4444;
+    --v4-destructive-bg: rgba(239,68,68,0.06);
+    --v4-shadow-sm:      0 1px 2px rgba(0,0,0,0.05);
+    --v4-shadow:         0 1px 3px rgba(0,0,0,0.10),0 1px 2px rgba(0,0,0,0.06);
+    --v4-shadow-lg:      0 10px 25px -5px rgba(0,0,0,0.10),0 8px 10px -6px rgba(0,0,0,0.05);
+    --v4-radius:         6px;
+    --v4-radius-sm:      4px;
   }
 }
 
@@ -35,3 +64,55 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ── V4 utility classes ───────────────────────────────────────────────────── */
+
+.v4-mono {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+}
+
+.v4-mono-label {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--v4-fg-3);
+  display: block;
+  margin-bottom: 5px;
+}
+
+.v4-cmd-prompt {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--v4-fg-4);
+}
+
+.v4-cmd-prompt .v4-p {
+  color: var(--v4-primary);
+  margin-right: 6px;
+}
+
+.v4-card {
+  background: var(--v4-surface);
+  border: 1px solid var(--v4-border);
+  border-radius: var(--v4-radius);
+  box-shadow: var(--v4-shadow-sm);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.v4-card:hover {
+  border-color: var(--v4-border-2);
+  box-shadow: var(--v4-shadow);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes v4-dot-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+.v4-dot-pulse { animation: v4-dot-pulse 2s ease-in-out infinite; }
