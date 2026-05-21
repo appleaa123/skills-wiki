@@ -548,4 +548,4 @@ All 128 skills are included out of the box. Each folder in `skills_library/` is 
 
 ## 12. License
 
-MIT
+apache license 2.0
